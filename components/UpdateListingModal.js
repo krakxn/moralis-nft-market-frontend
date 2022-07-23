@@ -12,17 +12,18 @@ export default function UpdateListingModal({
     onClose,
 }) {
     const dispatch = useNotification()
-
     const [priceToUpdateListingWith, setPriceToUpdateListingWith] = useState(0)
 
     const handleUpdateListingSuccess = async (tx) => {
         await tx.wait(1)
+        
         dispatch({
             type: "success",
             message: "listing updated",
             title: "Listing updated - please refresh (and move blocks)",
             position: "topR",
         })
+        
         onClose && onClose()
         setPriceToUpdateListingWith("0")
     }
@@ -31,6 +32,7 @@ export default function UpdateListingModal({
         abi: nftMarketplaceAbi,
         contractAddress: marketplaceAddress,
         functionName: "updateListing",
+        
         params: {
             nftAddress: nftAddress,
             tokenId: tokenId,
