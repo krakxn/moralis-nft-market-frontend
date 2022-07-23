@@ -15,6 +15,7 @@ const truncateStr = (fullStr, strLen) => {
     const charsToShow = strLen - seperatorLength
     const frontChars = Math.ceil(charsToShow / 2)
     const backChars = Math.floor(charsToShow / 2)
+    
     return (
         fullStr.substring(0, frontChars) +
         separator +
@@ -54,6 +55,7 @@ export default function NFTBox({ price, nftAddress, tokenId, marketplaceAddress,
     async function updateUI() {
         const tokenURI = await getTokenURI()
         console.log(`The TokenURI is ${tokenURI}`)
+        
         // We are going to cheat a little here...
         if (tokenURI) {
             // IPFS Gateway: A server that will return IPFS files from a "normal" URL.
@@ -64,13 +66,10 @@ export default function NFTBox({ price, nftAddress, tokenId, marketplaceAddress,
             setImageURI(imageURIURL)
             setTokenName(tokenURIResponse.name)
             setTokenDescription(tokenURIResponse.description)
-            // We could render the Image on our sever, and just call our sever.
-            // For testnets & mainnet -> use moralis server hooks
-            // Have the world adopt IPFS
+            // We could render the Image on our server, and just call our server.
+            // For testnets & mainnet -> Use Moralis server hooks
             // Build our own IPFS gateway
         }
-        // get the tokenURI
-        // using the image tag from the tokenURI, get the image
     }
 
     useEffect(() => {
