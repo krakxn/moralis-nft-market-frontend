@@ -13,7 +13,6 @@ export default function Home() {
     const marketplaceAddress = networkMapping[chainString].NftMarketplace[0]
     const dispatch = useNotification()
     const [proceeds, setProceeds] = useState("0")
-
     const { runContractFunction } = useWeb3Contract()
 
     async function approveAndList(data) {
@@ -43,6 +42,7 @@ export default function Home() {
 
     async function handleApproveSuccess(nftAddress, tokenId, price) {
         console.log("Ok! Now time to list")
+        
         const listOptions = {
             abi: nftMarketplaceAbi,
             contractAddress: marketplaceAddress,
@@ -63,6 +63,7 @@ export default function Home() {
 
     async function handleListSuccess(tx) {
         await tx.wait(1)
+        
         dispatch({
             type: "success",
             message: "NFT listing",
@@ -73,6 +74,7 @@ export default function Home() {
 
     const handleWithdrawSuccess = async (tx) => {
         await tx.wait(1)
+        
         dispatch({
             type: "success",
             message: "Withdrawing proceeds",
@@ -92,6 +94,7 @@ export default function Home() {
             },
             onError: (error) => console.log(error),
         })
+        
         if (returnedProceeds) {
             setProceeds(returnedProceeds.toString())
         }
